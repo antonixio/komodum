@@ -1,0 +1,37 @@
+name: tiggym_wear
+description: "A new Flutter project."
+publish_to: 'none'
+version: 0.1.0
+
+environment:
+  sdk: '>=3.3.4 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_wear_os_connectivity: ^1.0.0
+  wear: ^1.1.0
+
+  tiggym_shared:
+    path: ../tiggym_shared
+  get_it: ^7.7.0
+  rxdart: ^0.27.7
+  gap: ^3.0.1
+  selector_wheel: ^1.1.2
+    
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^3.0.0
+  flutter_launcher_icons: ^0.13.1
+
+flutter:
+  uses-material-design: true
+
+flutter_launcher_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/icon/app_icon.png"
+  min_sdk_android: 21 # android min sdk min:16, default 21
+  adaptive_icon_foreground: "assets/icon/app_icon_front.png"
+  adaptive_icon_background: "#FFFFFFFF"
