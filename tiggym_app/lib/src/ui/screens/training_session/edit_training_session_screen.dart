@@ -2,6 +2,8 @@ import 'dart:async';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:tiggym/src/data/repository/training_template_repository/training_template_resume_repository.dart';
+import 'package:tiggym/src/ui/screens/training_session/finished_workout_stats_screen.dart';
 import 'package:tiggym_shared/tiggym_shared.dart';
 import 'package:gap/gap.dart';
 import 'package:get_it/get_it.dart';
@@ -9,6 +11,7 @@ import 'package:loader_overlay/loader_overlay.dart';
 import 'package:rxdart/rxdart.dart';
 import '../../../controllers/training_session_controller.dart';
 import '../../../data/repository/training_session_repository/training_session_repository.dart';
+import '../../../data/repository/training_template_repository/training_template_repository.dart';
 import '../../../util/extensions/build_context_extensions.dart';
 import '../../widgets/c_confirmation_dialog/c_confirmation_dialog_widget.dart';
 import '../../widgets/c_exercises/c_exercises_sessions/c_compound_exercise_group_widget.dart';
@@ -36,6 +39,7 @@ class _EditTrainingSessionScreenState extends State<EditTrainingSessionScreen> {
   late final BehaviorSubject<TrainingSessionModel> _trainingSession = BehaviorSubject.seeded(widget.trainingSession);
   ValueStream<TrainingSessionModel> get trainingSession => _trainingSession;
   final TrainingSessionRepository trainingRepository = GetIt.I.get();
+  final TrainingTemplateRepository trainingTemplateRepository = GetIt.I.get();
 
   final List<StreamSubscription> subscriptions = [];
   @override
@@ -51,7 +55,6 @@ class _EditTrainingSessionScreenState extends State<EditTrainingSessionScreen> {
       }));
 
       subscriptions.add(trainingSessionController.popOngoingTraining.listen((event) {
-        print("Popping $event");
         context.pop(true);
       }));
     }
@@ -143,13 +146,142 @@ class _EditTrainingSessionScreenState extends State<EditTrainingSessionScreen> {
                 context.showMaterialModalBottomSheet((_) => CTrainingSessionFinishResumeWidget(
                     trainingSession: trainingSession.value.copyWith(duration: Duration(seconds: DateTime.now().secondsSinceEpoch - trainingSession.value.date.secondsSinceEpoch)),
                     ownerContext: context,
-                    onSave: () async {
+                    onSave: (updatedSession) async {
+                      final session = trainingSession.value;
+                      final ongoingSession = trainingSessionController.ongoingSession.value;
                       try {
                         context.loaderOverlay.show();
 
-                        await trainingSessionController.finishOngoingTraining();
+                        if (ongoingSession?.syncId == session.syncId) {
+                          final tSession = trainingSessionController.ongoingSession.value?.copyWith(
+                            date: updatedSession.date,
+                            name: updatedSession.name,
+                            duration: updatedSession.duration,
+                          );
 
-                        context.loaderOverlay.hide();
+                          if (tSession != null) {
+                            trainingSessionController.updateOngoing(tSession);
+                          }
+                          final sessionId = await trainingSessionController.finishOngoingTraining();
+                          context.loaderOverlay.hide();
+
+                          await context.showMaterialModalBottomSheet(
+                            (context) => ListView(
+                              padding: const EdgeInsets.all(16),
+                              shrinkWrap: true,
+                              children: [
+                                Text(
+                                  session.trainingTemplateId != null ? AppLocale.labelSaveWorkoutModifications.getTranslation(context) : AppLocale.labelSaveNewWorkout.getTranslation(context),
+                                  style: Theme.of(context).textTheme.titleMedium,
+                                ),
+                                const Gap(16),
+                                Text(
+                                  session.trainingTemplateId != null ? AppLocale.messageSaveWorkoutModifications.getTranslation(context) : AppLocale.messageSaveNewWorkout.getTranslation(context),
+                                ),
+                                const Gap(16),
+                                Row(
+                                  children: [
+                                    Expanded(
+                                      child: ElevatedButton(
+                                        style: ElevatedButton.styleFrom(foregroundColor: Theme.of(context).colorScheme.error),
+                                        onPressed: () {
+                                          context.pop();
+                                        },
+                                        child: Text(AppLocale.labelCancel.getTranslation(context)),
+                                      ),
+                                    ),
+                                    const Gap(16),
+                                    Expanded(
+                                      child: ElevatedButton(
+                                        onPressed: () async {
+                                          context.loaderOverlay.show();
+                                          await Future.delayed(const Duration(seconds: 1));
+                                          final template = session.toTemplate();
+                                          if (template.id < 1) {
+                                            final templateId = await trainingTemplateRepository.insert(template);
+                                            await trainingRepository.updateTemplateId(sessionId!, templateId);
+                                          } else {
+                                            await trainingTemplateRepository.update(session.toTemplate());
+                                          }
+                                          GetIt.I.get<TrainingTemplateResumeRepository>().load();
+                                          context.loaderOverlay.hide();
+                                          context.pop();
+                                        },
+                                        child: Text(AppLocale.labelConfirm.getTranslation(context)),
+                                      ),
+                                    ),
+                                  ],
+                                )
+                              ],
+                            ),
+                          );
+
+                          if (sessionId != null) {
+                            await context.showMaterialModalBottomSheet((context) => FinishedWorkoutStatsScreen(sessionId: sessionId));
+                          }
+                          context.pop(true);
+                        } else if ((session.id ?? 0) < 1) {
+                          final sessionId = await trainingRepository.insert(session);
+                          context.loaderOverlay.hide();
+                          await context.showMaterialModalBottomSheet(
+                            (context) => ListView(
+                              padding: const EdgeInsets.all(16),
+                              shrinkWrap: true,
+                              children: [
+                                Text(
+                                  session.trainingTemplateId != null ? AppLocale.labelSaveWorkoutModifications.getTranslation(context) : AppLocale.labelSaveNewWorkout.getTranslation(context),
+                                  style: Theme.of(context).textTheme.titleMedium,
+                                ),
+                                const Gap(16),
+                                Text(
+                                  session.trainingTemplateId != null ? AppLocale.messageSaveWorkoutModifications.getTranslation(context) : AppLocale.messageSaveNewWorkout.getTranslation(context),
+                                ),
+                                const Gap(16),
+                                Row(
+                                  children: [
+                                    Expanded(
+                                      child: ElevatedButton(
+                                        style: ElevatedButton.styleFrom(foregroundColor: Theme.of(context).colorScheme.error),
+                                        onPressed: () {
+                                          context.pop();
+                                        },
+                                        child: Text(AppLocale.labelCancel.getTranslation(context)),
+                                      ),
+                                    ),
+                                    const Gap(16),
+                                    Expanded(
+                                      child: ElevatedButton(
+                                        onPressed: () async {
+                                          context.loaderOverlay.show();
+                                          await Future.delayed(const Duration(seconds: 1));
+                                          final template = session.toTemplate();
+                                          if (template.id < 1) {
+                                            final templateId = await trainingTemplateRepository.insert(template);
+                                            await trainingRepository.updateTemplateId(sessionId!, templateId);
+                                          } else {
+                                            await trainingTemplateRepository.update(session.toTemplate());
+                                          }
+                                          GetIt.I.get<TrainingTemplateResumeRepository>().load();
+                                          context.loaderOverlay.hide();
+                                          context.pop();
+                                        },
+                                        child: Text(AppLocale.labelConfirm.getTranslation(context)),
+                                      ),
+                                    ),
+                                  ],
+                                )
+                              ],
+                            ),
+                          );
+                          context.pop(true);
+                        } else {
+                          trainingRepository.update(trainingSession.value.copyWith(
+                            date: updatedSession.date,
+                            name: updatedSession.name,
+                            duration: updatedSession.duration,
+                          ));
+                          context.loaderOverlay.hide();
+                        }
                       } catch (err) {
                         print(err);
                         context.loaderOverlay.hide();
@@ -260,7 +392,7 @@ class _EditTrainingSessionScreenState extends State<EditTrainingSessionScreen> {
                             stream: Stream.periodic(Durations.medium2),
                             builder: (context, snapshot) {
                               final dur = Duration(seconds: DateTime.now().secondsSinceEpoch - trainingSession.value.date.secondsSinceEpoch);
-
+                              final session = trainingSession.value;
                               return Row(
                                 mainAxisSize: MainAxisSize.min,
                                 children: [
@@ -270,7 +402,7 @@ class _EditTrainingSessionScreenState extends State<EditTrainingSessionScreen> {
                                   ),
                                   const Gap(8),
                                   Text(
-                                    dur.hoursMinutesSeconds,
+                                    (session.id ?? 0) < 1 ? dur.hoursMinutesSeconds : session.duration.hoursMinutesSeconds,
                                     style: Theme.of(context).textTheme.labelSmall?.copyWith(
                                       fontFeatures: [const FontFeature.tabularFigures()],
                                     ),
@@ -490,7 +622,7 @@ class _EditTrainingSessionScreenState extends State<EditTrainingSessionScreen> {
 class CTrainingSessionFinishResumeWidget extends StatefulWidget {
   final TrainingSessionModel trainingSession;
   final BuildContext ownerContext;
-  final VoidCallback onSave;
+  final void Function(TrainingSessionModel) onSave;
   const CTrainingSessionFinishResumeWidget({
     super.key,
     required this.trainingSession,
@@ -596,8 +728,10 @@ class _CTrainingSessionFinishResumeWidgetState extends State<CTrainingSessionFin
                 ElevatedButton(
                   onPressed: () async {
                     if (key.currentState?.validate() ?? false) {
+                      final training = trainingSession.value;
+
                       context.pop();
-                      widget.onSave.call();
+                      widget.onSave.call(training);
                     }
                   },
                   child: Text(AppLocale.labelSave.getTranslation(context)),

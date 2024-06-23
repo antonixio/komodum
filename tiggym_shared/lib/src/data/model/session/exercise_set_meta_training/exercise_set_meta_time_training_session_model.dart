@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../../../tiggym_shared.dart';
 import '../../../../util/extensions/duration_extensions.dart';
 import '../../template/exercise_set_meta_training/exercise_set_meta_training_template_model.dart';
 
@@ -57,5 +58,10 @@ class ExerciseSetMetaTimeTrainingSessionModel extends ExerciseSetMetaTrainingSes
   @override
   String getFormatted(BuildContext context) {
     return duration.hoursMinutesSeconds;
+  }
+
+  @override
+  ExerciseSetMetaTrainingTemplateModel toTemplate() {
+    return ExerciseSetMetaTimeTrainingTemplateModel(duration: duration, exerciseSetTrainingTemplateId: null, id: null);
   }
 }

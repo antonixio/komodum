@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localization/flutter_localization.dart';
 import 'package:get_it/get_it.dart';
+import 'package:loader_overlay/loader_overlay.dart';
+import 'package:tiggym/src/data/repository/stats_repository/stats_repository.dart';
+import 'package:tiggym/src/util/services/purchase_service.dart';
 import 'package:tiggym/src/util/services/wear_connectivity_service.dart';
 import 'package:tiggym_shared/tiggym_shared.dart';
 
@@ -42,9 +45,9 @@ class _InitializeScreenState extends State<InitializeScreen> {
       await _tryInit(() async {
         await DatabaseHelper.instance.initialize();
       });
+      await _tryInit(() async => PurchaseService.instance.initialize());
       await _setupDependencies();
       await _tryInit(() async => WearConnectivityService.instance.initialize());
-
       // ignore: use_build_context_synchronously
       Navigator.of(context).pushReplacementNamed('/home');
     });
@@ -62,6 +65,7 @@ class _InitializeScreenState extends State<InitializeScreen> {
     GetIt.I.registerSingleton<TrainingSessionController>(TrainingSessionController()..initialize());
     _setupDefaultCrudRepositorySession();
     _setupDefaultCrudRepositoryTemplate();
+    GetIt.I.registerFactory<StatsRepository>(() => StatsRepository());
   }
 
   void _setupDefaultCrudRepositorySession() {

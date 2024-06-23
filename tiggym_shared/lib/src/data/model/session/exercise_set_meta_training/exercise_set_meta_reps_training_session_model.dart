@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../../../tiggym_shared.dart';
 import '../../../../util/extensions/string_extensions.dart';
 
 import '../../../localization/app_locale.dart';
@@ -52,6 +53,13 @@ class ExerciseSetMetaRepsTrainingSessionModel extends ExerciseSetMetaTrainingSes
   @override
   ExerciseSetMetaTrainingSessionModel copyWithId([int? id]) {
     return copyWith(id: () => id);
+  }
+
+  @override
+  ExerciseSetMetaTrainingTemplateModel toTemplate() {
+    return ExerciseSetMetaRepsTrainingTemplateModel(
+      reps: reps,
+    );
   }
 
   @override

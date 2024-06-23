@@ -4,8 +4,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localization/flutter_localization.dart';
 import 'package:loader_overlay/loader_overlay.dart';
+import 'package:tiggym/src/ui/screens/stats/stats_screen.dart';
 import 'package:tiggym_shared/tiggym_shared.dart';
 
+import 'src/ui/screens/create_frequency/create_frequency.dart';
 import 'src/ui/screens/exercises/exercises_screen.dart';
 import 'src/ui/screens/home/home_screen.dart';
 import 'src/ui/screens/initialize/initialize_screen.dart';
@@ -83,6 +85,8 @@ class _AppState extends State<App> {
           '/exercises': (_) => const ExercisesScreen(),
           '/workouts': (_) => const TrainingTemplatesScreen(),
           '/sessions': (_) => const TrainingSessionsScreen(),
+          '/stats': (_) => const StatsScreen(),
+          '/create_frequency': (_) => const CreateFrequencyScreen(),
         },
       ),
     );

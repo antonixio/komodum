@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../../../../tiggym_shared.dart';
 import '../../database_model.dart';
 import '../../mappable_model.dart';
 
@@ -20,4 +21,6 @@ abstract class ExerciseSetMetaTrainingSessionModel with MappableModel, DatabaseM
 
   @override
   Map<String, dynamic> toDatabase() => toMap();
+
+  ExerciseSetMetaTrainingTemplateModel toTemplate();
 }

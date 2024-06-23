@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:tiggym_shared/src/data/model/database_model.dart';
 import 'package:tiggym_shared/src/util/all.dart';
 
+import '../../../../tiggym_shared.dart';
 import '../../../data/model/exercise/exercise_model.dart';
 import '../../../data/model/session/training_session_note_model.dart';
 import '../../../util/extensions/date_time_extensions.dart';
@@ -122,6 +123,14 @@ class TrainingSessionModel with MappableModel, DatabaseModel {
       'note': note?.toMap(),
       'syncId': syncId
     };
+  }
+
+  TrainingTemplateModel toTemplate() {
+    return TrainingTemplateModel(
+      id: trainingTemplateId ?? 0,
+      name: name,
+      exercises: exercises.map((e) => e.toTemplate()).toList(),
+    );
   }
 
   @override

@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:gap/gap.dart';
+import 'package:tiggym/src/ui/screens/training_session/finished_workout_stats_screen.dart';
+import 'package:tiggym/src/util/extensions/build_context_extensions.dart';
 import 'package:tiggym_shared/tiggym_shared.dart';
 
 import '../c_tag_item/c_tag_item_widget.dart';
@@ -36,12 +39,32 @@ class _CTrainingSessionItemWidgetState extends State<CTrainingSessionItemWidget>
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             const Gap(12),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0),
-              child: Text(
-                widget.trainingSessionResume.name,
-                style: Theme.of(context).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w600),
-              ),
+            Row(
+              children: [
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                    child: Text(
+                      widget.trainingSessionResume.name,
+                      style: Theme.of(context).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w600),
+                    ),
+                  ),
+                ),
+                InkWell(
+                  onTap: () {
+                    context.showMaterialModalBottomSheet((context) => FinishedWorkoutStatsScreen(sessionId: widget.trainingSessionResume.id));
+                  },
+                  borderRadius: BorderRadius.circular(100),
+                  child: const Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: Icon(
+                      Icons.analytics,
+                      size: 18,
+                    ),
+                  ),
+                ),
+                const Gap(8)
+              ],
             ),
             const Gap(12),
             Padding(
@@ -81,29 +104,15 @@ class _CTrainingSessionItemWidgetState extends State<CTrainingSessionItemWidget>
                     ],
                   ),
                 ),
-                const Gap(8),
-                if (widget.trainingSessionResume.tags.isNotEmpty)
-                  InkWell(
-                    onTap: () {
-                      setState(() {
-                        show = !show;
-                      });
-                    },
-                    borderRadius: BorderRadius.circular(80),
-                    child: Padding(
-                      padding: const EdgeInsets.all(4.0),
-                      child: Icon(
-                        !show ? Icons.arrow_drop_down : Icons.arrow_drop_up,
-                      ),
-                    ),
-                  )
               ],
             ),
-            if (!widget.trainingSessionResume.tags.isNotEmpty) const Gap(8),
-            AnimatedSize(
-              duration: Durations.medium1,
-              child: show
-                  ? Padding(
+            if (widget.trainingSessionResume.tags.isNotEmpty) ...[
+              const Gap(8),
+              SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  children: [
+                    Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12),
                       child: Wrap(
                         spacing: 8,
@@ -115,9 +124,12 @@ class _CTrainingSessionItemWidgetState extends State<CTrainingSessionItemWidget>
                                 ))
                             .toList(),
                       ),
-                    )
-                  : const SizedBox.shrink(),
-            ),
+                    ),
+                  ],
+                ),
+              )
+            ],
+            if (widget.trainingSessionResume.tags.isEmpty) const Gap(12),
           ],
         ),
       ),

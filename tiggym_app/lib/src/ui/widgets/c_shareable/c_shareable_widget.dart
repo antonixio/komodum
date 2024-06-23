@@ -1,25 +1,28 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:screenshot/screenshot.dart';
 
 import '../../../util/extensions/build_context_extensions.dart';
 import '../c_share_screenshot_edit/c_share_screenshot_edit_widget.dart';
 
-class CSharableWidget extends StatefulWidget {
+class CShareableWidget extends StatefulWidget {
   final Widget child;
   final double top;
   final double right;
-  const CSharableWidget({
+  final bool showIcon;
+  const CShareableWidget({
     super.key,
     required this.child,
     this.top = 0,
     this.right = 0,
+    this.showIcon = true,
   });
 
   @override
-  State<CSharableWidget> createState() => _CSharableWidgetState();
+  State<CShareableWidget> createState() => _CShareableWidgetState();
 }
 
-class _CSharableWidgetState extends State<CSharableWidget> {
+class _CShareableWidgetState extends State<CShareableWidget> {
   bool capturing = false;
   ScreenshotController screenshotController = ScreenshotController();
 
@@ -27,7 +30,10 @@ class _CSharableWidgetState extends State<CSharableWidget> {
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        Screenshot(controller: screenshotController, child: widget.child),
+        Screenshot(
+          controller: screenshotController,
+          child: widget.child,
+        ),
         Positioned(
           top: widget.top,
           right: widget.right,
@@ -52,7 +58,7 @@ class _CSharableWidgetState extends State<CSharableWidget> {
       setState(() => capturing = true);
       final image = await screenshotController.capture(pixelRatio: 20);
       if (image != null) {
-        context.showMaterialModalBottomSheet((context) => CShareScreenshotEditWidget(image: image));
+        context.showMaterialModalBottomSheet((context) => CShareScreenshotEditWidget(image: image, showIcon: widget.showIcon));
       }
     } finally {
       setState(() => capturing = false);

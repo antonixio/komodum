@@ -1,8 +1,11 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_heatmap_calendar/flutter_heatmap_calendar.dart';
 import 'package:gap/gap.dart';
 import 'package:tiggym_shared/tiggym_shared.dart';
 
+import '../c_heatmap/c_heatmap.dart';
 import '../c_tag_item/c_tag_item_widget.dart';
 
 class CTrainingTemplateItemWidget extends StatelessWidget {
@@ -51,23 +54,34 @@ class CTrainingTemplateItemWidget extends StatelessWidget {
               ),
             ),
             const Gap(12),
+            // Padding(
+            //   padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            //   child: HeatMap(
+            //     defaultColor: Theme.of(context).colorScheme.surfaceVariant,
+            //     // flexible: true,
+            //     colorMode: ColorMode.color,
+            //     // scrollable: true,
+            //     fontSize: 0,
+            //     startDate: DateTime.now().copyWith(day: 1, month: 1, year: DateTime.now().year - 1),
+            //     size: 10,
+            //     borderRadius: 2,
+            //     margin: const EdgeInsets.all(1.2),
+            //     scrollable: true,
+            //     datasets: trainingTemplateResume.lastSessions.groupBy((p0) => p0.dateOnly).map((key, value) => MapEntry(key, value.length)),
+            //     showColorTip: false,
+            //     showText: false,
+            //     onClick: (_) => onTap(),
+            //     colorsets: {
+            //       1: Theme.of(context).colorScheme.primary,
+            //     },
+            //   ),
+            // ),
+            const Gap(12),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
-              child: HeatMap(
+              child: CHeatMap(
+                startAt: DateTime.now().copyWith(day: 1, month: 1, year: DateTime.now().year - 1),
                 defaultColor: Theme.of(context).colorScheme.surfaceVariant,
-                // flexible: true,
-                colorMode: ColorMode.color,
-                // scrollable: true,
-                fontSize: 0,
-                startDate: DateTime.now().copyWith(day: 1, month: 1, year: DateTime.now().year - 5),
-                size: 10,
-                borderRadius: 2,
-                margin: const EdgeInsets.all(1.2),
-                scrollable: true,
-                datasets: trainingTemplateResume.lastSessions.groupBy((p0) => p0.dateOnly).map((key, value) => MapEntry(key, value.length)),
-                showColorTip: false,
-                showText: false,
-                onClick: (_) => onTap(),
                 colorsets: {
                   1: Theme.of(context).colorScheme.primary,
                 },

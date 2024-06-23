@@ -13,9 +13,9 @@ import '../exercise_repository/exercise_repository.dart';
 class TrainingTemplateRepository {
   Future<Database> get database => DatabaseHelper.instance.database;
 
-  Future<void> insert(TrainingTemplateModel trainingTemplate) async {
+  Future<int?> insert(TrainingTemplateModel trainingTemplate) async {
     final db = await database;
-    await db.transaction((txn) async {
+    return await db.transaction((txn) async {
       final trainingId = await _insertTransaction(trainingTemplate, txn);
 
       // Inserts the exercise Groups
@@ -39,6 +39,8 @@ class TrainingTemplateRepository {
           }
         }
       }
+
+      return trainingId;
     });
   }
 

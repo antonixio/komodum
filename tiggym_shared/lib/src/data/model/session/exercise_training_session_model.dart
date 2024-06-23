@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:path/path.dart';
 import 'package:tiggym_shared/src/data/model/database_model.dart';
+import '../../../../tiggym_shared.dart';
 import '../orderable_model.dart';
 import 'exercise_group_training_session_model.dart';
 import '../../../util/extensions/map_extensions.dart';
@@ -136,4 +137,12 @@ class ExerciseTrainingSessionModel with MappableModel, DatabaseModel, OrderableM
 
   @override
   ExerciseTrainingSessionModel copyWithOrder(int order) => copyWith(order: order);
+
+  ExerciseTrainingTemplateModel toTemplate() {
+    return ExerciseTrainingTemplateModel(
+      exercise: exercise,
+      order: order,
+      groupSets: groupSets.map((e) => e.toTemplate()).toList(),
+    );
+  }
 }

@@ -10,9 +10,11 @@ import 'package:tiggym_shared/tiggym_shared.dart';
 
 class CShareScreenshotEditWidget extends StatefulWidget {
   final Uint8List image;
+  final bool showIcon;
   const CShareScreenshotEditWidget({
     super.key,
     required this.image,
+    this.showIcon = true,
   });
 
   @override
@@ -206,32 +208,33 @@ class _CShareScreenshotEditWidgetState extends State<CShareScreenshotEditWidget>
                                             child: AspectRatio(aspectRatio: selectedRatioData ?? 1, child: Image.memory(widget.image)),
                                           ),
                                         ),
-                                        Positioned(
-                                          bottom: 8,
-                                          right: 8,
-                                          child: MediaQuery(
-                                            data: MediaQuery.of(context).copyWith(textScaler: TextScaler.noScaling),
-                                            child: Row(
-                                              children: [
-                                                SizedBox(
-                                                  height: min(18, max(constraints.maxHeight, constraints.maxWidth) * 0.5),
-                                                  width: min(18, max(constraints.maxHeight, constraints.maxWidth) * 0.5),
-                                                  child: Center(
-                                                    child: Image.asset('assets/icon/icon-front.png'),
+                                        if (widget.showIcon)
+                                          Positioned(
+                                            bottom: 8,
+                                            right: 8,
+                                            child: MediaQuery(
+                                              data: MediaQuery.of(context).copyWith(textScaler: TextScaler.noScaling),
+                                              child: Row(
+                                                children: [
+                                                  SizedBox(
+                                                    height: min(24, max(constraints.maxHeight, constraints.maxWidth) * 0.5),
+                                                    width: min(24, max(constraints.maxHeight, constraints.maxWidth) * 0.5),
+                                                    child: Center(
+                                                      child: Image.asset('assets/icon/ic_front_crop.png'),
+                                                    ),
                                                   ),
-                                                ),
-                                                const Gap(4),
-                                                Text(
-                                                  "TigGym",
-                                                  style: (Theme.of(context).textTheme.titleSmall ?? const TextStyle()).copyWith(
-                                                    fontWeight: FontWeight.bold,
-                                                    fontSize: min(12, max(constraints.maxHeight, constraints.maxWidth) * 0.025),
+                                                  const Gap(4),
+                                                  Text(
+                                                    "Komodum",
+                                                    style: (Theme.of(context).textTheme.titleSmall ?? const TextStyle()).copyWith(
+                                                      fontWeight: FontWeight.bold,
+                                                      fontSize: min(12, max(constraints.maxHeight, constraints.maxWidth) * 0.5),
+                                                    ),
                                                   ),
-                                                ),
-                                              ],
+                                                ],
+                                              ),
                                             ),
                                           ),
-                                        ),
                                       ],
                                     ),
                                   );

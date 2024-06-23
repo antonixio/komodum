@@ -53,11 +53,12 @@ class TrainingSessionController {
     }
   }
 
-  Future<void> finishOngoingTraining() async {
+  Future<int?> finishOngoingTraining({TrainingSessionModel? tSession}) async {
     final training = _ongoingSession.value;
+    int? id;
     if (training != null) {
       if ((training.id ?? 0) <= 0) {
-        await GetIt.I.get<TrainingSessionRepository>().insert(training);
+        id = await GetIt.I.get<TrainingSessionRepository>().insert(training);
       } else {
         await GetIt.I.get<TrainingSessionRepository>().update(training);
       }
@@ -77,6 +78,7 @@ class TrainingSessionController {
       _ongoingSession.add(null);
       SharedPrefsService.instance.remove(SharedPrefsKeys.kOngoingSession);
     }
+    return id;
   }
 
   void cancelOngoingTrainingSession() {

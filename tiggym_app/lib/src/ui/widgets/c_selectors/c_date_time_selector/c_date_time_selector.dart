@@ -153,7 +153,7 @@ class _CDateTimeSelectorState extends State<CDateTimeSelector> {
                                 childCount: 9999,
                                 highlightHeight: 30.0,
                                 width: 46,
-                                selectedItemIndex: year.value,
+                                selectedItemIndex: year.value - 1,
                                 convertIndexToValue: (int index) {
                                   return SelectorWheelValue<int>(
                                     // The label is what is displayed on the selector wheel

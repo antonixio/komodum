@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:tiggym_shared/src/data/model/database_model.dart';
 import 'package:tiggym_shared/src/util/all.dart';
 import 'package:uuid/uuid.dart';
+import '../../../../tiggym_shared.dart';
 import '../mappable_model.dart';
 import 'exercise_set_meta_training/exercise_set_meta_training_session_model.dart';
 
@@ -83,5 +84,13 @@ class ExerciseSetTrainingSessionModel with MappableModel, DatabaseModel {
     return toMap()
       ..remove('meta')
       ..remove('syncId');
+  }
+
+  ExerciseSetTrainingTemplateModel toTemplate() {
+    return ExerciseSetTrainingTemplateModel(
+      exerciseType: exerciseType,
+      order: order,
+      meta: meta.toTemplate(),
+    );
   }
 }

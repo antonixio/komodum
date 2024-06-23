@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../../../../tiggym_shared.dart';
 import '../../../../util/extensions/string_extensions.dart';
 import '../../../enum/weight_unit_enum.dart';
 import '../../../localization/app_locale.dart';
@@ -73,5 +74,14 @@ class ExerciseSetMetaRepsAndWeightTrainingSessionModel extends ExerciseSetMetaTr
   @override
   String getFormatted(BuildContext context) {
     return "$reps x ${weight.toStringAsFixed(1)} ${weightUnit.getLabel(context)}";
+  }
+
+  @override
+  ExerciseSetMetaTrainingTemplateModel toTemplate() {
+    return ExerciseSetMetaRepsAndWeightTrainingTemplateModel(
+      reps: reps,
+      weight: weight,
+      weightUnit: weightUnit,
+    );
   }
 }

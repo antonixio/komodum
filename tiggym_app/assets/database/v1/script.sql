@@ -117,6 +117,15 @@ CREATE TABLE IF NOT EXISTS "training_template" (
 );
 /* BREAK */
 
+CREATE TABLE IF NOT EXISTS "training_template_note" (
+    "id" INTEGER,
+    "trainingTemplateId" INTEGER NOT NULL,
+    "note" TEXT,
+    FOREIGN KEY ("trainingTemplateId") REFERENCES "training_template" ("id")  ON DELETE CASCADE,
+	PRIMARY KEY("id" AUTOINCREMENT)
+)
+/* BREAK */
+
 CREATE TABLE IF NOT EXISTS "exercise_group_training_template" (
     "id" INTEGER,
     "order" INTEGER NOT NULL,

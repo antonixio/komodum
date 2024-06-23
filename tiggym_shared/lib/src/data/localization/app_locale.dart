@@ -42,6 +42,10 @@ mixin AppLocale {
   static const String exerciseBike = 'exerciseBike';
   static const String formatDate = 'formatDate';
   static const String formatDateTime = 'formatDateTime';
+  static const String formatDateMonthYear = 'formatDateMonthYear';
+  static const String formatDateYear = 'formatDateYear';
+  static const String formatDateDayMonth = 'formatDateDayMonth';
+  static const String formatDateMonthShort = 'formatDateMonthShort';
   static const String labelOngoingWorkout = 'labelOngoingWorkout';
   static const String labelRepsAndWeight = 'labelRepsAndWeight';
   static const String labelReps = 'labelReps';
@@ -106,6 +110,43 @@ mixin AppLocale {
   static const String labelDiscarded = 'labelDiscarded';
   static const String labelFinished = 'labelFinished';
   static const String labelSets = 'labelSets';
+  static const String labelWeek = 'labelWeek';
+  static const String labelMonth = 'labelMonth';
+  static const String labelYear = 'labelYear';
+  static const String labelAll = 'labelAll';
+  static const String labelStats = 'labelStats';
+  static const String labelSessions = 'labelSessions';
+  static const String labelAverageSessionTime = 'labelAverageSessionTime';
+  static const String labelExercisesPerSession = 'labelExercisesPerSession';
+  static const String labelSetsPerSession = 'labelSetsPerSession';
+  static const String labelWeeklyDistribution = 'labelWeeklyDistribution';
+  static const String labelHourShort = 'labelHourShort';
+  static const String labelMinuteShort = 'labelMinuteShort';
+  static const String labelTotalReps = 'labelTotalReps';
+  static const String labelTotalSets = 'labelTotalSets';
+  static const String labelAverageRepsPerSet = 'labelAverageRepsPerSet';
+  static const String labelMaxRepsInOneset = 'labelMaxRepsInOneset';
+  static const String labelMaxWeightInOneSet = 'labelMaxWeightInOneSet';
+  static const String labelTotalVolume = 'labelTotalVolume';
+  static const String labelAverageVolumePerSet = 'labelAverageVolumePerSet';
+
+  static const String labelTotalTime = 'labelTotalTime';
+  static const String labelMaxTimeInOneSet = 'labelMaxTimeInOneSet';
+  static const String labelMinTimeInOneSet = 'labelMinTimeInOneSet';
+  static const String labelTotalDistance = 'labelTotalDistance';
+  static const String labelMaxDistanceInOneSet = 'labelMaxDistanceInOneSet';
+  static const String labelMinDistanceInOneSet = 'labelMinDistanceInOneSet';
+  static const String labelPro = 'labelPro';
+  static const String labelSaveNewWorkout = 'labelSaveNewWorkout';
+  static const String labelSaveWorkoutModifications = 'labelSaveWorkoutModifications';
+  static const String labelBecomeASupporter = 'labelBecomeASupporter';
+  static const String messageSaveNewWorkout = 'messageSaveNewWorkout';
+  static const String messageSaveWorkoutModifications = 'messageSaveWorkoutModifications';
+  static const String messagePurchaseSucceeded = "messagePurchaseSucceeded";
+  static const String messagePurchaseError = "messagePurchaseError";
+  static const String messageRestoreSucceeded = "messageRestoreSucceeded";
+  static const String messageRestoreError = "messageRestoreError";
+
   static const String messageYouNeedAtLeastOneSetForEachExercise = 'messageYouNeedAtLeastOneSetForEachExercise';
   static const String messageCouldntOpenWorkout = 'messageCouldntOpenWorkout';
   static const String messageSearchingDevices = 'messageSearchingDevices';
@@ -199,6 +240,10 @@ class AppLocaleTexts {
     required String exerciseBike,
     required String formatDate,
     required String formatDateTime,
+    required String formatDateMonthYear,
+    required String formatDateYear,
+    required String formatDateDayMonth,
+    required String formatDateMonthShort,
     required String labelOngoingWorkout,
     required String labelMeter,
     required String labelMeterShort,
@@ -263,6 +308,41 @@ class AppLocaleTexts {
     required String labelDiscarded,
     required String labelFinished,
     required String labelSets,
+    required String labelWeek,
+    required String labelMonth,
+    required String labelYear,
+    required String labelAll,
+    required String labelStats,
+    required String labelSessions,
+    required String labelAverageSessionTime,
+    required String labelExercisesPerSession,
+    required String labelSetsPerSession,
+    required String labelWeeklyDistribution,
+    required String labelHourShort,
+    required String labelMinuteShort,
+    required String labelTotalReps,
+    required String labelTotalSets,
+    required String labelAverageRepsPerSet,
+    required String labelMaxRepsInOneset,
+    required String labelMaxWeightInOneSet,
+    required String labelTotalVolume,
+    required String labelAverageVolumePerSet,
+    required String labelTotalTime,
+    required String labelMaxTimeInOneSet,
+    required String labelMinTimeInOneSet,
+    required String labelTotalDistance,
+    required String labelMaxDistanceInOneSet,
+    required String labelMinDistanceInOneSet,
+    required String labelPro,
+    required String labelSaveNewWorkout,
+    required String labelSaveWorkoutModifications,
+    required String labelBecomeASupporter,
+    required String messageSaveNewWorkout,
+    required String messageSaveWorkoutModifications,
+    required String messagePurchaseSucceeded,
+    required String messagePurchaseError,
+    required String messageRestoreSucceeded,
+    required String messageRestoreError,
     required String messageYouNeedAtLeastOneSetForEachExercise,
     required String messageCouldntOpenWorkout,
     required String messageSearchingDevices,
@@ -339,6 +419,10 @@ class AppLocaleTexts {
           AppLocale.exerciseBike: exerciseBike,
           AppLocale.formatDate: formatDate,
           AppLocale.formatDateTime: formatDateTime,
+          AppLocale.formatDateMonthYear: formatDateMonthYear,
+          AppLocale.formatDateYear: formatDateYear,
+          AppLocale.formatDateDayMonth: formatDateDayMonth,
+          AppLocale.formatDateMonthShort: formatDateMonthShort,
           AppLocale.labelOngoingWorkout: labelOngoingWorkout,
           AppLocale.labelMeter: labelMeter,
           AppLocale.labelAddSet: labelAddSet,
@@ -403,6 +487,41 @@ class AppLocaleTexts {
           AppLocale.labelDiscarded: labelDiscarded,
           AppLocale.labelFinished: labelFinished,
           AppLocale.labelSets: labelSets,
+          AppLocale.labelWeek: labelWeek,
+          AppLocale.labelMonth: labelMonth,
+          AppLocale.labelYear: labelYear,
+          AppLocale.labelAll: labelAll,
+          AppLocale.labelStats: labelStats,
+          AppLocale.labelSessions: labelSessions,
+          AppLocale.labelAverageSessionTime: labelAverageSessionTime,
+          AppLocale.labelExercisesPerSession: labelExercisesPerSession,
+          AppLocale.labelSetsPerSession: labelSetsPerSession,
+          AppLocale.labelWeeklyDistribution: labelWeeklyDistribution,
+          AppLocale.labelHourShort: labelHourShort,
+          AppLocale.labelMinuteShort: labelMinuteShort,
+          AppLocale.labelTotalReps: labelTotalReps,
+          AppLocale.labelTotalSets: labelTotalSets,
+          AppLocale.labelAverageRepsPerSet: labelAverageRepsPerSet,
+          AppLocale.labelMaxRepsInOneset: labelMaxRepsInOneset,
+          AppLocale.labelMaxWeightInOneSet: labelMaxWeightInOneSet,
+          AppLocale.labelTotalVolume: labelTotalVolume,
+          AppLocale.labelAverageVolumePerSet: labelAverageVolumePerSet,
+          AppLocale.labelTotalTime: labelTotalTime,
+          AppLocale.labelMaxTimeInOneSet: labelMaxTimeInOneSet,
+          AppLocale.labelMinTimeInOneSet: labelMinTimeInOneSet,
+          AppLocale.labelTotalDistance: labelTotalDistance,
+          AppLocale.labelMaxDistanceInOneSet: labelMaxDistanceInOneSet,
+          AppLocale.labelMinDistanceInOneSet: labelMinDistanceInOneSet,
+          AppLocale.labelPro: labelPro,
+          AppLocale.labelSaveNewWorkout: labelSaveNewWorkout,
+          AppLocale.labelSaveWorkoutModifications: labelSaveWorkoutModifications,
+          AppLocale.labelBecomeASupporter: labelBecomeASupporter,
+          AppLocale.messageSaveNewWorkout: messageSaveNewWorkout,
+          AppLocale.messageSaveWorkoutModifications: messageSaveWorkoutModifications,
+          AppLocale.messagePurchaseSucceeded: messagePurchaseSucceeded,
+          AppLocale.messagePurchaseError: messagePurchaseError,
+          AppLocale.messageRestoreSucceeded: messageRestoreSucceeded,
+          AppLocale.messageRestoreError: messageRestoreError,
           AppLocale.messageYouNeedAtLeastOneSetForEachExercise: messageYouNeedAtLeastOneSetForEachExercise,
           AppLocale.messageCouldntOpenWorkout: messageCouldntOpenWorkout,
           AppLocale.messageSearchingDevices: messageSearchingDevices,

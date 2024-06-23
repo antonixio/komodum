@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
@@ -41,12 +43,13 @@ class TrainingSessionRepository {
   // String get tableExerciseSet => 'exercise_set_training_template';
   Future<Database> get database => DatabaseHelper.instance.database;
 
-  Future<void> insert(TrainingSessionModel trainingSession) async {
+  Future<int?> insert(TrainingSessionModel trainingSession) async {
     final db = await database;
-    await db.transaction((txn) async {
-      await _insert(txn, trainingSession);
+    final id = await db.transaction((txn) async {
+      return await _insert(txn, trainingSession);
     });
     GetIt.I.get<HomeRepository>().load();
+    return id;
   }
 
   Future<void> validateAndInsert(TrainingSessionModel trainingSession) async {
@@ -65,7 +68,7 @@ class TrainingSessionRepository {
     GetIt.I.get<HomeRepository>().load();
   }
 
-  Future<void> _insert(Transaction txn, TrainingSessionModel trainingSession) async {
+  Future<int?> _insert(Transaction txn, TrainingSessionModel trainingSession) async {
     final trainingId = await _insertTransaction(trainingSession, txn);
     final note = trainingSession.note;
     if (note != null) {
@@ -94,6 +97,8 @@ class TrainingSessionRepository {
         }
       }
     }
+
+    return trainingId;
   }
 
   Future<List<TrainingSessionModel>> getTrainings({final int? id}) async {
@@ -220,6 +225,7 @@ class TrainingSessionRepository {
   }
 
   Future<void> update(TrainingSessionModel trainingSession) async {
+    // final json = jsonEncode(trainingSession.toMap());
     final db = await database;
     await db.transaction((txn) async {
       final repo = GetIt.I.get<DefaultCrudRepository<TrainingSessionModel>>();
@@ -331,6 +337,15 @@ class TrainingSessionRepository {
     await db.transaction((txn) async {
       await GetIt.I.get<DefaultCrudRepository<TrainingSessionModel>>().deleteTransaction(transaction: txn, whereArgs: [id], whereClause: 'id = ?');
       GetIt.I.get<HomeRepository>().load();
+    });
+  }
+
+  Future<void> updateTemplateId(int id, int? templateId) async {
+    final db = await database;
+    await db.transaction((txn) async {
+      await GetIt.I.get<DefaultCrudRepository<TrainingSessionModel>>().updateSpecificTransaction({
+        'trainingTemplateId': templateId,
+      }, id, txn);
     });
   }
 

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../../../../tiggym_shared.dart';
 import '../../../enum/distance_unit_enum.dart';
 import 'exercise_set_meta_training_session_model.dart';
 
@@ -63,5 +64,13 @@ class ExerciseSetMetaDistanceTrainingSessionModel extends ExerciseSetMetaTrainin
   @override
   String getFormatted(BuildContext context) {
     return "${distance.toStringAsFixed(1)} ${unit.getLabelShort(context)}";
+  }
+
+  @override
+  ExerciseSetMetaTrainingTemplateModel toTemplate() {
+    return ExerciseSetMetaDistanceTrainingTemplateModel(
+      distance: distance,
+      unit: unit,
+    );
   }
 }

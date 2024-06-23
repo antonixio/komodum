@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:tiggym_shared/src/util/all.dart';
+import '../../../../tiggym_shared.dart';
 import '../../../util/extensions/map_extensions.dart';
 import '../../enum/exercise_group_type_enum.dart';
 import '../database_model.dart';
@@ -173,4 +174,12 @@ class ExerciseGroupTrainingSessionModel with MappableModel, DatabaseModel, Order
 
   @override
   ExerciseGroupTrainingSessionModel copyWithOrder(int order) => copyWith(order: order);
+
+  ExerciseGroupTrainingTemplateModel toTemplate() {
+    return ExerciseGroupTrainingTemplateModel(
+      groupType: groupType,
+      exercises: exercises.map((e) => e.toTemplate()).toList(),
+      order: order,
+    );
+  }
 }

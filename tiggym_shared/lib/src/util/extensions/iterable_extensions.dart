@@ -61,4 +61,16 @@ extension IterableExtensions<T> on Iterable<T> {
 
     return [...this];
   }
+
+  Iterable<T> getBetween(int startIndex, int endIndex) {
+    int quantity = endIndex - startIndex + 1;
+
+    if (startIndex < 0) {
+      return take(quantity);
+    } else if (endIndex >= length) {
+      return skip(max((length - quantity), 0)).take(quantity);
+    } else {
+      return skip(startIndex).take(quantity);
+    }
+  }
 }

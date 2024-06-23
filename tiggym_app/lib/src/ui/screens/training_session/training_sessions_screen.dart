@@ -206,7 +206,11 @@ class _TrainingSessionsScreenState extends State<TrainingSessionsScreen> {
           ],
         ),
         body: PagedListView<String, _ListItemModel>.separated(
-          separatorBuilder: (_, __) => const Gap(8),
+          separatorBuilder: (_, i) => StreamBuilder(
+              stream: items.elementAtOrNull(i)?.deleted,
+              builder: (context, snapshot) {
+                return Gap((snapshot.data ?? true) ? 0 : 8);
+              }),
           padding: const EdgeInsets.all(16),
           pagingController: _pagingController,
           builderDelegate: PagedChildBuilderDelegate<_ListItemModel>(

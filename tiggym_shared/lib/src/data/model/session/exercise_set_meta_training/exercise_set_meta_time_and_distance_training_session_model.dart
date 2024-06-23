@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../../../tiggym_shared.dart';
 import '../../../../util/extensions/duration_extensions.dart';
 
 import '../../../enum/distance_unit_enum.dart';
@@ -72,5 +73,14 @@ class ExerciseSetMetaTimeAndDistanceTrainingSessionModel extends ExerciseSetMeta
   @override
   String getFormatted(BuildContext context) {
     return "${duration.hoursMinutesSeconds} - ${distance.toStringAsFixed(1)}${unit.getLabelShort(context)}";
+  }
+
+  @override
+  ExerciseSetMetaTrainingTemplateModel toTemplate() {
+    return ExerciseSetMetaTimeAndDistanceTrainingTemplateModel(
+      distance: distance,
+      unit: unit,
+      duration: duration,
+    );
   }
 }
