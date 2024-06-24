@@ -222,8 +222,8 @@ class _CDrawerWidgetState extends State<CDrawerWidget> {
                     updateActions("l-manage");
                   },
                   dense: true,
-                  title: const Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 8.0),
+                  title: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
                     child: Text(AppLocale.labelManageSubscriptions.getTranslation(context)),
                   ),
                 ),
