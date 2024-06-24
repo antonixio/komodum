@@ -301,32 +301,34 @@ class _StatsScreenState extends State<StatsScreen> {
                         ),
                       ),
                       const Gap(32),
-                      Material(
-                        color: Theme.of(context).colorScheme.surface,
-                        borderRadius: BorderRadius.circular(12),
-                        clipBehavior: Clip.antiAlias,
-                        child: Padding(
-                          padding: const EdgeInsets.all(16),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              CBarChartWidget(
-                                // maxY: 10,
-                                // interval: 10,
-                                title: AppLocale.labelWeeklyDistribution.getTranslation(context),
-                                data: BarChartModel(
-                                  items: data.weeklyDistribution.entries
-                                      .map((e) => BarChartItemModel(
-                                            label: e.key.toString(),
-                                            color: Theme.of(context).colorScheme.primary,
-                                            values: [BarChartItemValueModel.fromInt(value: e.value)],
-                                          ))
-                                      .toList(),
-                                  xAxisLabels: data.weeklyDistribution.entries.map((entry) => DateTime(1970, 2, entry.key).format("EEE").substring(0, 2)).toList(),
-                                  valueFormatter: (v) => v!.toStringAsFixed(0),
+                      CShareableWidget(
+                        child: Material(
+                          color: Theme.of(context).colorScheme.surface,
+                          borderRadius: BorderRadius.circular(12),
+                          clipBehavior: Clip.antiAlias,
+                          child: Padding(
+                            padding: const EdgeInsets.all(16),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                CBarChartWidget(
+                                  // maxY: 10,
+                                  // interval: 10,
+                                  title: AppLocale.labelWeeklyDistribution.getTranslation(context),
+                                  data: BarChartModel(
+                                    items: data.weeklyDistribution.entries
+                                        .map((e) => BarChartItemModel(
+                                              label: e.key.toString(),
+                                              color: Theme.of(context).colorScheme.primary,
+                                              values: [BarChartItemValueModel.fromInt(value: e.value)],
+                                            ))
+                                        .toList(),
+                                    xAxisLabels: data.weeklyDistribution.entries.map((entry) => DateTime(1970, 2, entry.key).format("EEE").substring(0, 2)).toList(),
+                                    valueFormatter: (v) => v!.toStringAsFixed(0),
+                                  ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
                         ),
                       ),

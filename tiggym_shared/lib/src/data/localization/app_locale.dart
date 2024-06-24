@@ -140,6 +140,8 @@ mixin AppLocale {
   static const String labelSaveNewWorkout = 'labelSaveNewWorkout';
   static const String labelSaveWorkoutModifications = 'labelSaveWorkoutModifications';
   static const String labelBecomeASupporter = 'labelBecomeASupporter';
+  static const String labelManageSubscriptions = 'labelManageSubscriptions';
+
   static const String messageSaveNewWorkout = 'messageSaveNewWorkout';
   static const String messageSaveWorkoutModifications = 'messageSaveWorkoutModifications';
   static const String messagePurchaseSucceeded = "messagePurchaseSucceeded";
@@ -194,7 +196,7 @@ mixin AppLocale {
   static Locale defaultLocale = const Locale('en');
 
   static Map<Locale, AppLocaleTexts> map = {
-    const Locale('pt'): appLocalePt,
+    // const Locale('pt'): appLocalePt,
     const Locale('en'): appLocaleEn,
   };
 }
@@ -337,6 +339,7 @@ class AppLocaleTexts {
     required String labelSaveNewWorkout,
     required String labelSaveWorkoutModifications,
     required String labelBecomeASupporter,
+    required String labelManageSubscriptions,
     required String messageSaveNewWorkout,
     required String messageSaveWorkoutModifications,
     required String messagePurchaseSucceeded,
@@ -516,6 +519,7 @@ class AppLocaleTexts {
           AppLocale.labelSaveNewWorkout: labelSaveNewWorkout,
           AppLocale.labelSaveWorkoutModifications: labelSaveWorkoutModifications,
           AppLocale.labelBecomeASupporter: labelBecomeASupporter,
+          AppLocale.labelManageSubscriptions: labelManageSubscriptions,
           AppLocale.messageSaveNewWorkout: messageSaveNewWorkout,
           AppLocale.messageSaveWorkoutModifications: messageSaveWorkoutModifications,
           AppLocale.messagePurchaseSucceeded: messagePurchaseSucceeded,

@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:purchases_flutter/purchases_flutter.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:tiggym/src/util/helper/paywall_helper.dart';
 import 'package:tiggym/src/util/services/purchase_service.dart';
-import 'package:tiggym/src/util/services/wear_connectivity_service.dart';
 import 'package:tiggym_shared/tiggym_shared.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../../util/extensions/build_context_extensions.dart';
-import '../../../util/helper/border_radius_max.dart';
 
 const activate = ["l-stats", "l-stats", "l-stats", "l-tags", "l-tags", "l-tags"];
 final devActivated = BehaviorSubject.seeded(false);
@@ -214,6 +212,21 @@ class _CDrawerWidgetState extends State<CDrawerWidget> {
                     child: Text(AppLocale.labelTags.getTranslation(context)),
                   ),
                 ),
+
+                ListTile(
+                  onTap: () async {
+                    updateActions("manage");
+                    await launchUrl(Uri.parse("https://play.google.com/store/account/subscriptions"));
+                  },
+                  onLongPress: () {
+                    updateActions("l-manage");
+                  },
+                  dense: true,
+                  title: const Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 8.0),
+                    child: Text(AppLocale.labelManageSubscriptions.getTranslation(context)),
+                  ),
+                ),
                 StreamBuilder(
                     stream: devActivated,
                     initialData: devActivated.value,
@@ -233,6 +246,7 @@ class _CDrawerWidgetState extends State<CDrawerWidget> {
                         ),
                       );
                     }),
+
                 // const Gap(64),
                 // StreamBuilder(
                 //     stream: WearConnectivityService.instance.enabled,

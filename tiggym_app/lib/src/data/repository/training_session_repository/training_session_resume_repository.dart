@@ -1,5 +1,9 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 import 'package:sqflite/sqflite.dart';
+import 'package:tiggym/src/data/repository/tag_repository/tag_repository.dart';
 import 'package:tiggym_shared/tiggym_shared.dart';
 
 import '../../../util/database/database_helper.dart';
@@ -9,7 +13,7 @@ class TrainingSessionResumeRepository {
 
   String get table => 'training_session';
 
-  Future<List<TrainingSessionResumeModel>> getSessions({String? lastOrder, int pageSize = 50}) async {
+  Future<List<TrainingSessionResumeModel>> getSessionsA({String? lastOrder, int pageSize = 50}) async {
     try {
       final db = await database;
       return await db.transaction((txn) async {
@@ -49,6 +53,26 @@ class TrainingSessionResumeRepository {
               },
             ));
         }).toList();
+      });
+    } catch (err) {
+      debugPrint(err.toString());
+      return [];
+    }
+  }
+
+  Future<List<TrainingSessionResumeModel>> getSessions({String? lastOrder, int pageSize = 50}) async {
+    try {
+      int start = int.tryParse(lastOrder ?? '') ?? 0;
+
+      return List.generate(pageSize, (index) {
+        final tags = List.generate(4, (index) => GetIt.I.get<TagRepository>().tagCategories.value.randomItem()!.mainTag).groupBy((p0) => p0.id).entries.map((e) => e.value.first).toList();
+        return TrainingSessionResumeModel(
+            id: index + start + 1,
+            name: "${tags.first.name} Workout",
+            date: DateTime.now().add(Duration(days: -(index + start), minutes: -(Random().nextInt(60 * 3)))),
+            duration: Duration(minutes: Random().nextInt(45) + 45),
+            order: (index + start).toString(),
+            tags: tags);
       });
     } catch (err) {
       debugPrint(err.toString());

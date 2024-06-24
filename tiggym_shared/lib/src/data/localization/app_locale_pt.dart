@@ -135,6 +135,7 @@ final appLocalePt = AppLocaleTexts(
     labelSaveNewWorkout: 'Salvar como novo treino?',
     labelSaveWorkoutModifications: 'Salvar modificações no treino?',
     labelBecomeASupporter: 'Torne-se um apoiador 🥰',
+    labelManageSubscriptions: 'Gerenciar assinaturas',
     messageSaveNewWorkout: 'Esse treino será salvo como uma nova rotina de treino para ser repetido facilmente',
     messageSaveWorkoutModifications: 'Isso irá sobrescrever a sua rotina de treino atual',
     messagePurchaseSucceeded: 'Obrigado pelo suporte e seja bem-vindo ao PRO',

@@ -70,6 +70,6 @@ class PurchaseService {
     return isPremiumEnabled(customerInfo);
   }
 
-  bool isPremiumEnabled(CustomerInfo customerInfo) => (customerInfo.entitlements.all[PurchasesConstants.kPremiumEntitlement]?.isActive ?? false);
-  // bool isPremiumEnabled(CustomerInfo customerInfo) => true;
+  // bool isPremiumEnabled(CustomerInfo customerInfo) => (customerInfo.entitlements.all[PurchasesConstants.kPremiumEntitlement]?.isActive ?? false);
+  bool isPremiumEnabled(CustomerInfo customerInfo) => true;
 }
