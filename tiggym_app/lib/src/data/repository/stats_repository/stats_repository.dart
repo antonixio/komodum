@@ -9,12 +9,12 @@ import 'package:tiggym_shared/tiggym_shared.dart';
 class StatsRepository {
   final repo = GetIt.I.get<TrainingSessionRepository>();
 
-  Future<StatsModel> getDataA() async {
+  Future<StatsModel> getData() async {
     final trainings = await repo.getTrainings();
     return StatsModel.dummy().copyWith(baseSessions: trainings);
   }
 
-  Future<StatsModel> getData() async {
+  Future<StatsModel> getDataA() async {
     // final trainings = await repo.getTrainings();
     final trainings = List.generate(
       700,

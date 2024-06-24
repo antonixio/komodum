@@ -13,7 +13,7 @@ class TrainingSessionResumeRepository {
 
   String get table => 'training_session';
 
-  Future<List<TrainingSessionResumeModel>> getSessionsA({String? lastOrder, int pageSize = 50}) async {
+  Future<List<TrainingSessionResumeModel>> getSessions({String? lastOrder, int pageSize = 50}) async {
     try {
       final db = await database;
       return await db.transaction((txn) async {
@@ -60,7 +60,7 @@ class TrainingSessionResumeRepository {
     }
   }
 
-  Future<List<TrainingSessionResumeModel>> getSessions({String? lastOrder, int pageSize = 50}) async {
+  Future<List<TrainingSessionResumeModel>> getSessionsA({String? lastOrder, int pageSize = 50}) async {
     try {
       int start = int.tryParse(lastOrder ?? '') ?? 0;
 
