@@ -136,6 +136,7 @@ final appLocaleEn = AppLocaleTexts(
   labelSaveWorkoutModifications: 'Save workout modifications?',
   labelBecomeASupporter: 'Become a Supporter 🥰',
   labelManageSubscriptions: 'Manage subscriptions',
+  labelDetails: 'Details',
   messageSaveNewWorkout: 'This workout will be saved as a new workout routine to be repeated easily',
   messageSaveWorkoutModifications: 'This will override the your current workout routine',
   messagePurchaseSucceeded: "Thanks for your support and welcome to PRO",

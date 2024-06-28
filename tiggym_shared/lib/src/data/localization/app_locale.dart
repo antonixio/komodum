@@ -141,6 +141,7 @@ mixin AppLocale {
   static const String labelSaveWorkoutModifications = 'labelSaveWorkoutModifications';
   static const String labelBecomeASupporter = 'labelBecomeASupporter';
   static const String labelManageSubscriptions = 'labelManageSubscriptions';
+  static const String labelDetails = 'labelDetails';
 
   static const String messageSaveNewWorkout = 'messageSaveNewWorkout';
   static const String messageSaveWorkoutModifications = 'messageSaveWorkoutModifications';
@@ -340,6 +341,7 @@ class AppLocaleTexts {
     required String labelSaveWorkoutModifications,
     required String labelBecomeASupporter,
     required String labelManageSubscriptions,
+    required String labelDetails,
     required String messageSaveNewWorkout,
     required String messageSaveWorkoutModifications,
     required String messagePurchaseSucceeded,
@@ -520,6 +522,7 @@ class AppLocaleTexts {
           AppLocale.labelSaveWorkoutModifications: labelSaveWorkoutModifications,
           AppLocale.labelBecomeASupporter: labelBecomeASupporter,
           AppLocale.labelManageSubscriptions: labelManageSubscriptions,
+          AppLocale.labelDetails: labelDetails,
           AppLocale.messageSaveNewWorkout: messageSaveNewWorkout,
           AppLocale.messageSaveWorkoutModifications: messageSaveWorkoutModifications,
           AppLocale.messagePurchaseSucceeded: messagePurchaseSucceeded,
