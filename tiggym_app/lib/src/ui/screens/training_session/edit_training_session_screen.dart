@@ -219,7 +219,7 @@ class _EditTrainingSessionScreenState extends State<EditTrainingSessionScreen> {
                           if (sessionId != null) {
                             await context.showMaterialModalBottomSheet((context) => FinishedWorkoutStatsScreen(sessionId: sessionId));
                           }
-                          context.pop(true);
+                          // context.pop(true);
                         } else if ((session.id ?? 0) < 1) {
                           final sessionId = await trainingRepository.insert(session);
                           context.loaderOverlay.hide();

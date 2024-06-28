@@ -4,6 +4,7 @@ import 'package:get_it/get_it.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 import 'package:rxdart/rxdart.dart';
+import 'package:tiggym/src/ui/screens/training_session/finished_workout_stats_screen.dart';
 import 'package:tiggym/src/ui/widgets/c_empty_message/c_empty_message_widget.dart';
 import 'package:tiggym_shared/tiggym_shared.dart';
 
@@ -281,6 +282,15 @@ class _TrainingSessionsScreenState extends State<TrainingSessionsScreen> {
               edit(e);
             },
             title: Text(AppLocale.labelEdit.getTranslation(context)),
+          ),
+          ListTile(
+            dense: true,
+            leading: const Icon(Icons.analytics, size: 12),
+            onTap: () async {
+              context.pop();
+              context.showMaterialModalBottomSheet((context) => FinishedWorkoutStatsScreen(sessionId: e.session.value.id));
+            },
+            title: Text(AppLocale.labelDetails.getTranslation(context)),
           ),
           ListTile(
             dense: true,
