@@ -55,7 +55,7 @@ class PaywallHelper {
                         ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(AppLocale.messageRestoreSucceeded.getTranslation(context))));
                       },
                       onRestoreError: (_) {
-                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(AppLocale.messageRestoreSucceeded.getTranslation(context))));
+                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(AppLocale.messagePurchaseError.getTranslation(context))));
                       },
                     ),
                   ),
