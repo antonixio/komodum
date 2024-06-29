@@ -71,5 +71,7 @@ class PurchaseService {
   }
 
   bool isPremiumEnabled(CustomerInfo customerInfo) => (customerInfo.entitlements.all[PurchasesConstants.kPremiumEntitlement]?.isActive ?? false);
+
+  void validate(CustomerInfo customerInfo) => _isPremium.add(isPremiumEnabled(customerInfo));
   // bool isPremiumEnabled(CustomerInfo customerInfo) => true;
 }
