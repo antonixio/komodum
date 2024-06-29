@@ -14,7 +14,7 @@ class StatsRepository {
     return StatsModel.dummy().copyWith(baseSessions: trainings);
   }
 
-  Future<StatsModel> getDataA() async {
+  Future<StatsModel> getDataTest() async {
     // final trainings = await repo.getTrainings();
     final trainings = List.generate(
       700,
