@@ -50,13 +50,16 @@ class PaywallHelper {
                       onPurchaseError: (_) {
                         ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(AppLocale.messagePurchaseError.getTranslation(context))));
                       },
-                      onRestoreCompleted: (customerInfo) {
-                        PurchaseService.instance.validate(customerInfo);
+                      onRestoreCompleted: (customerInfo) async {
+                        context.loaderOverlay.show();
+                        await PurchaseService.instance.validate();
+                        context.loaderOverlay.hide();
                         context.pop();
-                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(AppLocale.messageRestoreSucceeded.getTranslation(context))));
+                        ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(content: Text((PurchaseService.instance.isPremium.value ? AppLocale.messageRestoreSucceeded : AppLocale.messageRestoreError).getTranslation(context))));
                       },
                       onRestoreError: (_) {
-                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(AppLocale.messagePurchaseError.getTranslation(context))));
+                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(AppLocale.messageRestoreError.getTranslation(context))));
                       },
                     ),
                   ),

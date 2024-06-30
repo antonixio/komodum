@@ -72,6 +72,9 @@ class PurchaseService {
 
   bool isPremiumEnabled(CustomerInfo customerInfo) => (customerInfo.entitlements.all[PurchasesConstants.kPremiumEntitlement]?.isActive ?? false);
 
-  void validate(CustomerInfo customerInfo) => _isPremium.add(isPremiumEnabled(customerInfo));
+  Future<void> validate() async {
+    CustomerInfo customerInfo = await Purchases.getCustomerInfo();
+    _isPremium.add(isPremiumEnabled(customerInfo));
+  }
   // bool isPremiumEnabled(CustomerInfo customerInfo) => true;
 }
